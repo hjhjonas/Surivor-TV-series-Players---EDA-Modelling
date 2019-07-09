@@ -1,7 +1,7 @@
 ---
 title: "Survivor (TV Series) Players - Exploratory Data Analysis and Modelling"
 author: "Jonas Ho Jia Hao"
-date: "7/1/2019"
+date: "7/9/2019"
 output: 
   html_document:
     code_folding: hide
@@ -72,17 +72,19 @@ Where do players come from?
 What are the proportions for if the players were "Applicants" or if they were "Recruited" through connections?
 <br>
 
-6. And finally, modeled the finishing position for players.
+6. Modeled the finishing position for players.
 <br>
 Are we able to explain a player's finishing position in a game in general? 
 <br>
 Are we able to explain a player's probability of reaching The Merge?
 <br>
 
+7. And finally, created a Tableau Dashboard as a companion to the analysis.
+<br>
+
 ## Survivor Gameplay
 <br>
 <br>
-
 In the most basic and default form:
 <br>
 
@@ -98,13 +100,13 @@ The tribes will compete in challenges and one player from the losing tribe will 
 After the first 20 days, the remaining players will merge into a single tribe. This activity is called 'The Merge'.
 <br>
 
-The players will henceforth compete in challenges as individuals and one player will be voted out of the game on the night of that challenge. The winner of that challenge cannot be voted for on that night. This carries on until there are 2 players remaining.
+The players will henceforth compete in challenges as individuals and one player will be voted out of the game on the night of that challenge. The winner of that challenge cannot be voted for on that night. This carries on until there are 2 (or 3) players remaining.
 <br>
 
 The players voted out of the game after The Merge will return to the game as 'Jury Members' on voting nights to watch the pre-voting discussions between the host and the remaining players.
 <br>
 
-At the end, the Jury Members will vote to decide which of the 2 remaining players deserves to be the winner of the game.
+At the end, the Jury Members will vote to decide which of the 2 (or 3) remaining players deserves to be the winner of the game.
 <br>
 
 The winner takes home $1,000,000 and earns the title of 'Sole Survivor'.
@@ -116,7 +118,6 @@ The winner takes home $1,000,000 and earns the title of 'Sole Survivor'.
 ## 1. Data
 <br>
 <br>
-
 Import data and view data.
 ```{r warning = FALSE, message=FALSE}
 library(tidyverse)
@@ -432,7 +433,7 @@ This is exactly what we need for now!
 Finally we can now find out details for Rudy Boesch!
 <br>
 
-We can see below that he was in Season 1 and Season 8, which are 8 seasons apart as suspected. He finished behind at 17th place in Season 8 despite being the winner for Season 1 (It was the all-star season and therefore he was playing against great players like Boston Rob. I can't say how Rudy was voted out, but there was also a possibility that he already had a target on his back going into the game). Notably it was also in this season that the Boston Rob and Amber Brkich romance started.
+We can see below that he was in Season 1 and Season 8, which are 8 seasons apart as suspected. He finished behind at 17th place in Season 8 despite being the 2nd runner-up for Season 1 (It was the all-star season and therefore he was playing against great players like Boston Rob. I can't say how Rudy was voted out, but there was also a possibility that he already had a target on his back going into the game). Notably it was also in this season that the Boston Rob and Amber Brkich romance started.
 ```{r warning = FALSE, message=FALSE}
 surv_players_clean %>%
   filter(name == "Rudy Boesch")
@@ -534,7 +535,6 @@ Hence we have 3 results from the above.
 ## 3. Gender
 <br>
 <br>
-
 **What is the proportion of the different genders for each season and across all the seasons?**
 <br>
 <br>
@@ -586,7 +586,6 @@ It is Erin collins from Season 5, thought to be a transvestite because of seemin
 ## 4. Homestates
 <br>
 <br>
-
 **Where do players come from?**
 <br>
 <br>
@@ -768,13 +767,13 @@ All players in Season 8 were recruited because these were All-Star players from 
 It is quite interesting to note how players were recruited.
 <br>
 
-* Some come from The Amazing Race,
+* Some came from other TV Shows such as the The Amazing Race and Big Brother,
 <br>
 
-* Some get recruited through networks with past players, and finally
+* Some got recruited through networks with past players, and finally
 <bR>
 
-* some get recruited through networks with the crew working on the show.
+* some got recruited through networks with the crew working on the show.
 <br>
 <br>
 <br>
@@ -1001,3 +1000,16 @@ Survivor is ultimately a game of social interactions despite the physical and pr
 <br>
 <br>
 <br>
+
+## 7. Tableau
+<br>
+<br>
+**Tableau companion to analysis.**
+<br>
+
+![Tableau Companion](C:/Users/Jonas/Desktop/Survivor Players EDA/Tableau Image - Companion to Analysis.jpg)
+<br>
+<br>
+<br>
+<br>
+
