@@ -1,7 +1,7 @@
 ---
 title: "Survivor (TV Series) Players - Exploratory Data Analysis and Modelling"
 author: "Jonas Ho Jia Hao"
-date: "7/9/2019"
+date: "23/8/2019"
 output: 
   html_document:
     code_folding: hide
@@ -32,11 +32,11 @@ options(width = 90)
 I was watching Survivor Season 38: Edge of Extinction and I became curious about the characteristics of the players. It felt to me as if many players over the years had vibes signalling that they come from California (Hollywood vibes) as opposed to East Coast vibes. So naturally I wondered about the proportions and how the players had been casted for the show.
 <br>
 
-As such, the motivation for this project is based on the assumption that I am able to discern the differences between The West Coast and The East Coast which, in reality, is probably a shaky assumption. Haha!
+As such, the motivation for this project is based on the assumption that I am able to discern the differences between The West Coast and The East Coast which, in reality, is probably a shaky assumption.
 <br>
 *(Some time ago in history, when there was a 'The East Coast vs The West Coast' discussion, both Tupac and Biggie died; RIP)*
 
-Despite the shaky assumption, I did a google search and that led me to finding players data from a post on this webpage:
+Despite the shaky assumption, I did a Google search and that led me to finding players data from a post on this webpage:
 <br>
 <https://www.tapatalk.com/groups/survivorsucks/master-list-recruits-applicants-others-all-seasons-t61049-s20.html>.
 <br>
@@ -54,7 +54,7 @@ I first:
 
 2. Explored the age variable.
 <br>
-What is the age distribution for each each season and also across all the seasons?
+What is the age distribution for each season and also across all the seasons?
 <br>
 
 3. Explored the gender proportions.
@@ -62,7 +62,7 @@ What is the age distribution for each each season and also across all the season
 What is the proportion of the different genders for each season and also across all the seasons?
 <br>
 
-4. Explored the homestates of players.
+4. Explored the home states of players.
 <br>
 Where do players come from?
 <br>
@@ -82,7 +82,7 @@ Are we able to explain a player's probability of reaching The Merge?
 7. And finally, created a Tableau Dashboard as a companion to the analysis.
 <br>
 
-## Survivor Gameplay
+## Survivor Game play
 <br>
 <br>
 In the most basic and default form:
@@ -182,7 +182,7 @@ DT::datatable(surv_players,
 <br>
 <br>
 
-For example - The Season 1 winner is Richard Hatch and 4th place is Sue Hawk. Richard hatch was 39 years old during the filming, he is a male from Newport, Rhode Island, and he was an applicant as opposed to being recruited. Richard and Sue later met again in Season 8, the All-Star season and had some drama regarding sexual harrassment between them.
+For example - The Season 1 winner is Richard Hatch and 4th place is Sue Hawk. Richard hatch was 39 years old during the filming, he is a male from Newport, Rhode Island, and he was an applicant as opposed to being recruited. Richard and Sue later met again in Season 8, the All-Star season and had some drama regarding sexual harassment between them.
 <br>
 <br>
 
@@ -209,7 +209,7 @@ ggplot(surv_players, aes(x = as.numeric(age))) + geom_histogram(fill = "grey", c
   theme(plot.title = element_text(hjust = 0.5))
 ```
 <br>
-It's Rudy Boesch. Rudy Boesh was a player twice, 4 years apart, so about 8 seasons apart. Which seasons, I wonder?
+It's Rudy Boesch. Rudy Boesch was a player twice, 4 years apart, so about 8 seasons apart. Which seasons, I wonder?
 ```{r warning = FALSE, message=FALSE}
 surv_players %>%
   arrange(desc(age))
@@ -233,7 +233,7 @@ The serial column is especially messy. It contains the season number amongst the
 ```{r}
 unique(surv_players$serial)
 ```
-In order to faciliate further cleaning we need to deal with the additional text pattern (i.e. [/font]) first. We can remove the pattern that all start with '[' to every column (not just the serial column). We then look at the new unique values for serial.
+In order to facilitate further cleaning we need to deal with the additional text pattern (i.e. [/font]) first. We can remove the pattern that all start with '[' to every column (not just the serial column). We then look at the new unique values for serial.
 <br>
 ```{r message = FALSE, warning=FALSE}
 surv_players_clean <- surv_players %>%
@@ -271,7 +271,7 @@ Looks great!
 <br>
 <br>
 
-Now we need to find the index numbers of the last entry for each season. Then we need to find the difference from the last entry to the first entry of each season. We do this because we need to know how many rows make up a season. By knowing how many rows make up a seaosn, we can know how many values to paste into the columns.
+Now we need to find the index numbers of the last entry for each season. Then we need to find the difference from the last entry to the first entry of each season. We do this because we need to know how many rows make up a season. By knowing how many rows make up a season, we can know how many values to paste into the columns.
 <br>
 
 We can find the last entry by checking the index number for the winner of that season. Notice that there are only 18 elements in the vector while we should get 19 (as there are 19 seasons). This is because the last entry for season 19 is 'NA'. We will need to manually add the index number of the last row.
@@ -294,7 +294,7 @@ length(updated_index)
 ```
 <br>
 
-We can differnce the vector of indexes to find the number of rows per season. But in order not to lose information on the first index, we will need to manually include that in.
+We can difference the vector of indexes to find the number of rows per season. But in order not to lose information on the first index, we will need to manually include that in.
 <br>
 
 Number of rows per season.
@@ -479,7 +479,7 @@ car::leveneTest(as.numeric(age) ~ season, data = surv_players_clean)
 <br>
 <br>
 
-Having homoscedastic variance satisfies only one of two assumptions required to run a one-way ANOVA (pfft, these parametric tests and their assumptions, aimirite?) to compare means of ages across the seasons. The other assumption requireed is the assumption of normality. The means across the seasons are computed below. 
+Having homoscedastic variance satisfies only one of two assumptions required to run a one-way ANOVA (pfft, these parametric tests and their assumptions, aimirite?) to compare means of ages across the seasons. The other assumption required is the assumption of normality. The means across the seasons are computed below. 
 ```{r}
 print(paste("Mean:", by(surv_players_clean$age, surv_players_clean$season, mean)))
 ```
@@ -513,7 +513,7 @@ summary(aov(age ~ season, data = surv_players_clean))
 ```
 <br>
 
-Based on the ANOVA summary output above we cannpt reject the null (p-value = 0.9); there is no significant differences between means across all the seasons.
+Based on the ANOVA summary output above we cannot reject the null (p-value = 0.9); there is no significant differences between means across all the seasons.
 <br>
 <br>
 
@@ -583,7 +583,7 @@ It is Erin collins from Season 5, thought to be a transvestite because of seemin
 <br>
 <Br>
 
-## 4. Homestates
+## 4. Home states
 <br>
 <br>
 **Where do players come from?**
@@ -593,7 +593,7 @@ It is Erin collins from Season 5, thought to be a transvestite because of seemin
 We can also explore the state from which the players come from.
 <br>
 
-From sorting, we see that the top homestate is California with 81 players, the 1st runner-up is New York with 28 players, and finally the 2nd runner-up is Texas with 16 players.
+From sorting, we see that the top home state is California with 81 players, the 1st runner-up is New York with 28 players, and finally the 2nd runner-up is Texas with 16 players.
 ```{r warning = FALSE, message=FALSE}
 head(surv_players_clean %>%
   count(state) %>%
@@ -694,7 +694,7 @@ ggplot(p2, aes(x = long, y = lat, group = group)) +
   scale_fill_gradientn(colours = rev(heat.colors(10)),na.value = "grey90") +
   coord_map() +
   theme_bw() +
-  labs(title = "Heat Map of Homestates",
+  labs(title = "Heat Map of Home states",
        x = "Longitude",
        y = "Latitude") +
   theme(plot.title = element_text(hjust = 0.5)) +
@@ -708,7 +708,7 @@ ggplot(p2, aes(x = long, y = lat, group = group)) +
 We see that most players on the show hail from California (81). The next state with the highest number of players is New York (28), and finally Texas (16). Some states (as of Season 19) have not been represented.
 <br>
 
-As suspected at the start of the analysis, most players do indeed come from California and hence it was possible to sense the "Hollywood vibes". As it turns out, my assumption is not a shaky one in reality afterall! Haha!
+As suspected at the start of the analysis, most players do indeed come from California and hence it was possible to sense the "Hollywood vibes". As it turns out, my assumption is not a shaky one in reality after all!
 <br>
 
 We do not have data on the rejected players and therefore would not be able to comment on the casting decisions. But there is definitely some selection bias; residents of California are more likely to apply to be on a TV show because of their proximity to and the influence of Hollywood.
@@ -817,7 +817,7 @@ We can run a linear regression to model the expected place of a player given the
 First we will need to do some transformations:
 <br>
 
-* Mode: "Applicant" = 1 or "Recuited" = 0
+* Mode: "Applicant" = 1 or "Recruited" = 0
 <br>
 
 * sex: "M" = 1 or "F" = 0
@@ -829,7 +829,7 @@ First we will need to do some transformations:
 * serial: convert as numeric
 <br>
 
-* state: seggregate into region (West, Midwest, South, East) and create a new variable with reference to the U.S. Census Bureau Regions and Divisions seen below.
+* state: segregate into region (West, Midwest, South, East) and create a new variable with reference to the U.S. Census Bureau Regions and Divisions seen below.
 ![Image of Divisions](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Census_Regions_and_Division_of_the_United_States.svg/1280px-Census_Regions_and_Division_of_the_United_States.svg.png)
 <br>
 
@@ -862,7 +862,7 @@ glimpse(model_df)
 We can now fit the model and print the outputs.
 <br>
 
-We are regessing serial on age, mode, sex, and region.
+We are regressing serial on age, mode, sex, and region.
 ```{r}
 model_df$region <- factor(model_df$region, levels = c("East", "South", "West", "Midwest"))
 
@@ -883,7 +883,7 @@ Recall that a serial of 1 refers to being the winner, hence a player from the So
 <br>
 <br>
 
-Given the results above, we should view some diagnstic plots below to check for validity of these results.
+Given the results above, we should view some diagnostic plots below to check for validity of these results.
 ```{r warning=F, fig.height=8}
 par(mfrow=c(2,2))
 plot(fit)
@@ -893,7 +893,7 @@ plot(fit)
 1) Linearity assumption and expectation of residuals is zero assumption:
 <br>
 
-The residuals in the Residuals vs Fitted plot look like they are randomly dispersed about the value 0 as the fitted values increases. This implies that there is no non-linear relationship betwen the regressors and the outcome, hence the assumption of linearity between the outcome and the regressors is not violated. Another implication from interpreting the plot is that the expectation of residuals is zero, hence the model fit is correct in the long run.
+The residuals in the Residuals vs Fitted plot look like they are randomly dispersed about the value 0 as the fitted values increases. This implies that there is no non-linear relationship between the regressors and the outcome, hence the assumption of linearity between the outcome and the regressors is not violated. Another implication from interpreting the plot is that the expectation of residuals is zero, hence the model fit is correct in the long run.
 <br>
 <br>
 
@@ -985,7 +985,7 @@ summary(log_fit)
 From the summary output, none of the variables included are significant in explaining whether a player will have *the right to become a Jury Member* or not. The intercept holds information for a female player who has been recruited and comes from the East with age equals 0.
 <br>
 
-However, note that if regionSouth had been significant, the estimated odds ratio of a player having *the right to become a Jury Member* if the player is from the South is 0.56 times (= exp(-0.58089)) that of the odds for if the player is from the East; odds are reduced if the player is from the South relative to being from the East. This backs up our analysis above for linear regression. Alternatively, the probability of a player from the South having the *the right to become a Jury Member* is about 44% lower [(|0.56 - 1|)*100] than of that of a player from the East.
+However, note that if regionSouth had been significant, the estimated odds ratio of a player having *the right to become a Jury Member* if the player is from the South is 0.56 times (= exp(-0.58089)) that of the odds for if the player is from the East; odds of having *the right to become a Jury Member* are reduced if the player is from the South relative to being from the East. This backs up our analysis above for linear regression. Alternatively, the probability of a player from the South having the *the right to become a Jury Member* is about 44% lower [(|0.56 - 1|)*100] than of that of a player from the East.
 <br>
 <br>
 
