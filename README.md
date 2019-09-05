@@ -1,8 +1,8 @@
 # Surivor-TV-series-Players---EDA-Modelling
 
-This project contains Exploratory Data Analysis of Survivor contestant particulars. 
+This project contains Exploratory Data Analysis of Survivor contestants' particulars. 
 
-I set out discover the homestates of contestants, but eventually expanded my exploration to other characteristics including age distribution, sex, and mode of application to the show. I also tried to model the final positions of contestants and their probability of getting the right to become jury members. The first part of this project includes the full documentation for data munging.
+I set out to discover the homestates of contestants, but eventually expanded my exploration to other characteristics including age distribution, sex, and mode of applications to the show. I also tried to model the final positions of contestants and the odds of getting the right to become jury members. The first part of this project includes the full documentation for data munging.
 
 To view project in final form:
 
